@@ -16,6 +16,8 @@ services:
       - PGHOST=nsp_db # NAME OF THE SERVICE
     depends_on:
       - nsp_db
+    networks: 
+      - nsp_network
   nsp_db:
     container_name: nsp_db
     image: 'postgres:12'
@@ -25,6 +27,8 @@ services:
       - POSTGRES_USER=francesco
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=nps_database
+    networks: 
+      - nsp_network
     volumes:
       - nps_data:/var/lib/postgresql/data
   grafana:
@@ -34,8 +38,13 @@ services:
       - '3002:3000'
     volumes:
       - grafana-storage:/var/lib/grafana
+    networks: 
+      - nsp_network
     depends_on:
       - nsp_db
 volumes:
   nps_data: {}
   grafana-storage: {}
+
+networks: 
+  nsp_network: {}

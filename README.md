@@ -4,6 +4,7 @@
 
 ```bash
 yarn
+node scripts/copyfiles
 ```
 
 ## Setup Twitter Client
@@ -26,11 +27,11 @@ docker push francescoxx/node-docker:0.0.1
 
 ## TODOS
 
-- [ ] add logging (e.g. winston, ...)
-- [ ] add custom network on docker compose
+- [X] add custom network on docker compose
 - [ ] add tweet model (numbers)
 - [ ] add .env file
 - [ ] integration Twitter API
+- [ ] add logging (e.g. winston, ...)
 
 ## Misc
 
