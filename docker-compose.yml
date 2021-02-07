@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nsp_backend:
     container_name: nsp_backend
-    image: francescoxx/node-docker:0.0.4
+    image: francescoxx/social-data-dashboard:0.0.1
     build:
       context: .
     ports:
