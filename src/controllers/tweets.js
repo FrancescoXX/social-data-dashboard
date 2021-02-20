@@ -1,5 +1,6 @@
-const Tweet = require('../models/tweets')//CREATE-ONE
+const Tweet = require('../models/tweets') //CREATE-ONE
 
+const axios = require('axios')
 
 /**
  * CRUD CONTROLLERS
@@ -30,15 +31,21 @@ exports.createOne = async (req, res, next) => {
 //GET-ALL
 exports.getAll = async (req, res, next) => {
   console.log('getAll: [GET] /tweets/')
+
+  // TODO: Move this to users?
   try {
-    const ALL = await Tweet.findAll()
-    console.log(
-      'OK getAll TWEET: ',
-      ALL.map(el => el.dataValues),
-    )
-    return res.status(200).json(ALL)
+    const response = await axios
+      .get('http://twitterclient:3003/api/tweets/statusesUserTimeline/natterstefan')
+    return res.status(200).json(response.data)
+    
+    // const ALL = await Tweet.findAll()
+    // console.log(
+    //   'OK getAll TWEET: ',
+    //   ALL.map(el => el.dataValues),
+    // )
+    // return res.status(200).json(ALL)
   } catch (error) {
-    console.log('ERROR in getAll ' + 'TWEET:', error)
-    return res.status(500).json(error)
+    console.log('ERROR in getAll TWEET:', error)
+    // return res.status(500).json(error)
   }
 }

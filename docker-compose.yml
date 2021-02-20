@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nsp_backend:
     container_name: nsp_backend
-    image: francescoxx/social-data-dashboard:0.0.1
+    image: francescoxx/social-data-dashboard:0.0.2
     build:
       context: .
     ports:
@@ -42,6 +42,18 @@ services:
       - nsp_network
     depends_on:
       - nsp_db
+  twitterclient:
+    image: francescoxx/nodejs-twitter-api-server-example:0.0.2
+    ports:
+      - "3003:3003"
+    environment:
+      - API_KEY=${API_KEY}
+      - API_SECRET=${API_SECRET}
+      - ACCESS_TOKEN=${ACCESS_TOKEN}
+      - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
+    networks: 
+      - nsp_network
+  
 volumes:
   nps_data: {}
   grafana-storage: {}
