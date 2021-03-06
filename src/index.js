@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const sequelize = require('./util/database') // database and sequelize initializations
 const User = require('./models/users') // REQUIRED even if IDE says not used!
 const Tweet = require('./models/tweets') // REQUIRED even if IDE says not used!
+const Tweettest = require('./models/tweettest') // REQUIRED even if IDE says not used!
 
 // INITIALIZE APP WITH EXPRESS
 const app = express()
