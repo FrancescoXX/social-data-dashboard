@@ -1,10 +1,10 @@
-const express = require('express')
-const bodyParser = require('body-parser')
+import express from 'express'
+import bodyParser from 'body-parser'
 
-const sequelize = require('./util/database') // database and sequelize initializations
-const User = require('./models/users') // REQUIRED even if IDE says not used!
-const Tweet = require('./models/tweets') // REQUIRED even if IDE says not used!
-const Tweettest = require('./models/tweettest') // REQUIRED even if IDE says not used!
+import sequelize from './util/database' // database and sequelize initializations
+import User from './models/users' // REQUIRED even if IDE says not used!
+import Tweet from './models/tweets' // REQUIRED even if IDE says not used!
+import Tweettest from './models/tweettest' // REQUIRED even if IDE says not used!
 
 // INITIALIZE APP WITH EXPRESS
 const app = express()

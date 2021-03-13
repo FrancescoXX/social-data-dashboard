@@ -1,11 +1,12 @@
-const Tweettest = require('../models/tweettest') 
+import { NextFunction, Request, Response } from "express"
+import Tweettest from '../models/tweettest'
 
-const axios = require('axios')
+import axios from 'axios'
 
 /**
  * CRUD CONTROLLERS
  */
-exports.createOne = async (req, res, next) => {
+const createOne = async (req:Request, res:Response, next:NextFunction) => {
   console.log('createOne: [POST] /tweets/')
   try {
     const { data } = await axios
@@ -31,7 +32,7 @@ exports.createOne = async (req, res, next) => {
 }
 
 //GET-ALL
-exports.getAll = async (req, res, next) => {
+const getAll = async (req: Request, res: Response, next: NextFunction) => {
   console.log('getAll: [GET] /tweets/')
 
   try {
@@ -50,4 +51,9 @@ exports.getAll = async (req, res, next) => {
     console.log('ERROR in getAll Tweettest:', error)
     // return res.status(500).json(error)
   }
+}
+
+export default {
+  createOne,
+  getAll
 }

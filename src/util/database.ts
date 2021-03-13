@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 // GET ENV VARIABLES FROM
-const sequelize = new Sequelize(
+const sequelizeInstance = new Sequelize(
   process.env.PGDATABASE,
   process.env.PGUSER,
   process.env.PGPASSWORD,
@@ -11,4 +11,4 @@ const sequelize = new Sequelize(
   },
 )
 
-module.exports = sequelize
+export default sequelizeInstance

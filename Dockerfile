@@ -7,15 +7,19 @@ WORKDIR /app
 
 # configs and dependency handling
 COPY package.json yarn.lock ./
+COPY tsconfig.json ./
 
 # install all dependencies
 RUN yarn install --frozen-lockfile --no-progress
 
 # source code of the app
-COPY src/ ./
+COPY src/ ./src
+
+# build the app
+RUN yarn build
 
 # expose the port
 EXPOSE 3001
 
 # run the app
-CMD ["node", "."]
+CMD ["node", "./build/src/index.js"]

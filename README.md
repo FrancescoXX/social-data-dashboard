@@ -10,7 +10,7 @@ node scripts/copyfiles
 ## Setup Twitter Client
 
 - [ ] TODO: add details about how to set up
-  <https://github.com/FeedHive/twitter-api-client> here
+      <https://github.com/FeedHive/twitter-api-client> here
 
 ## How to run the Docker Image
 
@@ -27,11 +27,12 @@ docker push francescoxx/node-docker:0.0.1
 
 ## TODOS
 
-- [X] add custom network on docker compose
-- [X] add tweet model (numbers)
-- [ ] add .env file
-- [ ] integration Twitter API
-- [ ] add logging (e.g. winston, ...)
+- [] Import tweets
+- [] Choose model and Add Interface for Tweet model
+- [] Change the hardcoded parts
+- [] Add Nodemon with Docker
+
+Version 1 
 
 ## Misc
 

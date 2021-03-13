@@ -1,11 +1,13 @@
-const User = require('../models/users')
+import { NextFunction, Request, Response } from "express"
+
+import User from '../models/users'
 
 /**
  * CRUD CONTROLLERS
  */
 
 //CREATE-ONE
-exports.createOne = async (req, res, next) => {
+const createOne = async (req:Request, res:Response, next:NextFunction) => {
   console.log('createOne: [POST] /users/')
   try {
     const USER_MODEL = {
@@ -28,13 +30,13 @@ exports.createOne = async (req, res, next) => {
 }
 
 //GET-ALL
-exports.getAll = async (req, res, next) => {
+const getAll = async (req:Request, res:Response, next:NextFunction) => {
   console.log('getAll: [GET] /users/')
   try {
     const ALL = await User.findAll()
     console.log(
       'OK getAll USER: ',
-      ALL.map(el => el.dataValues),
+      ALL.map((el:any) => el.dataValues),
     )
     return res.status(200).json(ALL)
   } catch (error) {
@@ -44,7 +46,7 @@ exports.getAll = async (req, res, next) => {
 }
 
 //GET-ONE
-exports.getOne = async (req, res, next) => {
+const getOne = async (req:Request, res:Response, next:NextFunction) => {
   console.log('getOne: [GET] /users/:id')
   try {
     const u = await User.findByPk(req.params.id)
@@ -57,7 +59,7 @@ exports.getOne = async (req, res, next) => {
 }
 
 //UPDATE-ONE.
-exports.updateOne = async (req, res, next) => {
+const updateOne = async (req:Request, res:Response, next:NextFunction) => {
   console.log('updateOne: [PUT] /users/:id')
   try {
     const USER_MODEL = {
@@ -80,7 +82,7 @@ exports.updateOne = async (req, res, next) => {
 }
 
 //DELETE-ONE
-exports.deleteOne = async (req, res, next) => {
+const deleteOne = async (req:Request, res:Response, next:NextFunction) => {
   console.log('[DELETE] /users/:id')
   try {
     const u = await User.destroy({ where: { id: req.params.id } })
@@ -90,4 +92,12 @@ exports.deleteOne = async (req, res, next) => {
     console.log('ERROR in deleteOne ' + 'USER:', error)
     return res.status(500).json(error)
   }
+}
+
+export default {
+  createOne,
+  getAll,
+  getOne,
+  updateOne,
+  deleteOne,
 }

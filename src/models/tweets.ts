@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const db = require('../util/database')
+import Sequelize from 'sequelize'
+import db from '../util/database'
 
 const Tweet = db.define('tweets', {
   id: {
@@ -21,4 +21,4 @@ const Tweet = db.define('tweets', {
   }
 })
 
-module.exports = Tweet
+export default Tweet
