@@ -3,8 +3,7 @@ import db from '../util/database'
 
 const Tweettest = db.define('tweettests', {
   id: {
-    // TODO: use BigInt instead, because ID's are longer than Integers
-    type: Sequelize.INTEGER,
+    type: Sequelize.TEXT,
     allowNull: false,
     primaryKey: true,
   },

@@ -1,33 +1,37 @@
-import { NextFunction, Request, Response } from "express"
+import { NextFunction, Request, Response } from 'express'
 import Tweettest from '../models/tweettest'
 
 import axios from 'axios'
 
+// ATTENTION: partial typing of the twitter api response
+type TweetResponse = {
+  id_str: string
+  text: string
+  created_at: Date
+}
+
 /**
  * CRUD CONTROLLERS
  */
-const createOne = async (req:Request, res:Response, next:NextFunction) => {
+const createOne = async (req: Request, res: Response, next: NextFunction) => {
   console.log('createOne: [POST] /tweets/')
   try {
-    const { data } = await axios
-    .get('http://twitterclient:3003/api/tweets/statusesUserTimeline/natterstefan')
+    const { data } = await axios.get<TweetResponse[]>(
+      'http://twitterclient:3003/api/tweets/statusesUserTimeline/FrancescoCiull4',
+    )
 
-    const result = data[0]
-    const TWEET_MODEL = {
-      // TODO: change Tweettest id type to BigInt
-      // id: result.id,
-      id: Math.floor(Math.random() * 10) + 1,
-      text: result.text,
-      created: result.created_at,
-    }
+    const tweets = data.map(tweet => ({
+        id: tweet.id_str,
+        text: tweet.text,
+        created: tweet.created_at,
+    }))
 
-    const tweet = await Tweettest.create(TWEET_MODEL)
-    console.log('OK createOne TWEET: ', tweet)
-
-    return res.status(201).json(tweet)
+    // docs: https://sequelize.org/master/class/lib/model.js~Model.html#static-method-bulkCreate
+    const bulkResponse = await Tweettest.bulkCreate(tweets)
+    return res.status(201).json(bulkResponse)
   } catch (error) {
     console.log('ERROR in createOne ' + 'TWEET:', error)
-      return res.status(500).json(error)
+    return res.status(500).json(error)
   }
 }
 
@@ -36,9 +40,10 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
   console.log('getAll: [GET] /tweets/')
 
   try {
-    const response = await axios
-    .get('http://twitterclient:3003/api/tweets/statusesUserTimeline/natterstefan')
-  
+    const response = await axios.get(
+      'http://twitterclient:3003/api/tweets/statusesUserTimeline/FrancescoCiull4',
+    )
+
     return res.status(200).json(response.data)
 
     // const ALL = await Tweettest.findAll()
@@ -55,5 +60,5 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 export default {
   createOne,
-  getAll
+  getAll,
 }

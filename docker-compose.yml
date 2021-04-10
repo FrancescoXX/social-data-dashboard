@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nsp_backend:
     container_name: nsp_backend
-    image: francescoxx/social-data-dashboard:0.0.3
+    image: francescoxx/social-data-dashboard:0.0.4
     build:
       context: .
     ports:
@@ -16,7 +16,7 @@ services:
       - PGHOST=nsp_db # NAME OF THE SERVICE
     depends_on:
       - nsp_db
-    networks: 
+    networks:
       - nsp_network
   nsp_db:
     container_name: nsp_db
@@ -27,7 +27,7 @@ services:
       - POSTGRES_USER=francesco
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=nps_database
-    networks: 
+    networks:
       - nsp_network
     volumes:
       - nps_data:/var/lib/postgresql/data
@@ -38,25 +38,25 @@ services:
       - '3002:3000'
     volumes:
       - grafana-storage:/var/lib/grafana
-    networks: 
+    networks:
       - nsp_network
     depends_on:
       - nsp_db
   twitterclient:
-    image: francescoxx/nodejs-twitter-api-server-example:0.0.2
+    image: francescoxx/nodejs-twitter-api-server-example:1.0.1
     ports:
-      - "3003:3003"
+      - '3003:3003'
     environment:
       - API_KEY=${API_KEY}
       - API_SECRET=${API_SECRET}
       - ACCESS_TOKEN=${ACCESS_TOKEN}
       - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
-    networks: 
+    networks:
       - nsp_network
-  
+
 volumes:
   nps_data: {}
   grafana-storage: {}
 
-networks: 
+networks:
   nsp_network: {}
