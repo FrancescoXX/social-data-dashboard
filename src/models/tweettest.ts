@@ -7,12 +7,24 @@ const Tweettest = db.define('tweettests', {
     allowNull: false,
     primaryKey: true,
   },
+  userId: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  },
   text: {
     type: Sequelize.TEXT,
     allowNull: false
   },
   created: {
-    type: Sequelize.TEXT,
+    type: Sequelize.DATE,
+    allowNull: false
+  },
+  retweet_count: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  favorite_count: {
+    type: Sequelize.INTEGER,
     allowNull: false
   }
 })

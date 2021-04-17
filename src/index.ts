@@ -29,7 +29,7 @@ app.use('/tweets', require('./routes/tweets'))
 const start = async () => {
   try {
     await sequelize.sync(
-      { force: false }, // Reset db every time
+      { force: true }, // Reset db every time
     )
     app.listen(process.env.EXTERNAL_PORT, () => {
       console.log('I am running!')

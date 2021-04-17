@@ -32,8 +32,7 @@ docker push francescoxx/node-docker:0.0.1
 - [] Change the hardcoded parts
 - [] Add Nodemon with Docker
 - [] Extend model Tweet (favourites=likes)
-- [] Grafana dashboard
-Version 1
+- [] Grafana dashboard Version 1
 
 ## Misc
 

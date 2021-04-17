@@ -8,6 +8,11 @@ type TweetResponse = {
   id_str: string
   text: string
   created_at: Date
+  retweet_count: number
+  favorite_count: number
+  user: {
+    id_str: string
+  }
 }
 
 /**
@@ -15,15 +20,19 @@ type TweetResponse = {
  */
 const createOne = async (req: Request, res: Response, next: NextFunction) => {
   console.log('createOne: [POST] /tweets/')
+  console.log('CREATING FOR ' + req.body.username);
   try {
     const { data } = await axios.get<TweetResponse[]>(
-      'http://twitterclient:3003/api/tweets/statusesUserTimeline/FrancescoCiull4',
+      'http://twitterclient:3003/api/tweets/statusesUserTimeline/' + req.body.username,
     )
 
     const tweets = data.map(tweet => ({
         id: tweet.id_str,
         text: tweet.text,
         created: tweet.created_at,
+        retweet_count: tweet.retweet_count,
+        favorite_count: tweet.favorite_count,
+        userId: tweet.user.id_str,
     }))
 
     // docs: https://sequelize.org/master/class/lib/model.js~Model.html#static-method-bulkCreate
@@ -37,11 +46,11 @@ const createOne = async (req: Request, res: Response, next: NextFunction) => {
 
 //GET-ALL
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('getAll: [GET] /tweets/')
+  console.log('getAll: [GET] /tweets/:username')
 
   try {
     const response = await axios.get(
-      'http://twitterclient:3003/api/tweets/statusesUserTimeline/FrancescoCiull4',
+      'http://twitterclient:3003/api/tweets/statusesUserTimeline/' + req.params.username,
     )
 
     return res.status(200).json(response.data)

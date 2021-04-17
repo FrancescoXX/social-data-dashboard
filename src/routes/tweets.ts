@@ -6,7 +6,7 @@ const router = Router.Router()
 // CRUD Model-Agnostic.
 // Keep them at the end of the route file for url parsing requests
 router
-  .get('/', controller.getAll)
+  .get('/:username', controller.getAll)
   // .get('/:id', controller.getOne)
   .post('/', controller.createOne)
   // .put('/:id', controller.updateOne)
