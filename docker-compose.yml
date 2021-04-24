@@ -53,10 +53,24 @@ services:
       - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
     networks:
       - nsp_network
+  pgadmin4:
+    image: dpage/pgadmin4:4.30
+    ports:
+      - 7750:80
+    networks:
+      - nsp_network
+    depends_on:
+      - nsp_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
 volumes:
   nps_data: {}
   grafana-storage: {}
+  pgadmin_data:
 
 networks:
   nsp_network: {}

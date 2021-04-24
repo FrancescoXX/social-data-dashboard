@@ -1,10 +1,12 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cron from 'node-cron'
 
 import sequelize from './util/database' // database and sequelize initializations
 import User from './models/users' // REQUIRED even if IDE says not used!
 import Tweet from './models/tweets' // REQUIRED even if IDE says not used!
 import Tweettest from './models/tweettest' // REQUIRED even if IDE says not used!
+import { addTweets } from './twitter/addTweets'
 
 // INITIALIZE APP WITH EXPRESS
 const app = express()
@@ -32,7 +34,11 @@ const start = async () => {
       { force: true }, // Reset db every time
     )
     app.listen(process.env.EXTERNAL_PORT, () => {
-      console.log('I am running!')
+      console.log('I am running! (' + Date.now() + ')')
+
+      cron.schedule('*/6 * * * *', () => {
+        addTweets('elonmusk')
+      })
     }) // DEF in docker.compose.yml
   } catch (error) {
     console.log(error)
