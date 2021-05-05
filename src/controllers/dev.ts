@@ -1,20 +1,20 @@
-import { NextFunction, Response, Request } from "express"
+import { NextFunction, Response, Request } from 'express'
 
 import packJson from '../../package.json'
 import sequelize from '../util/database'
 
 // [GET] ../dev/config
-const getConfig = (req: Request, res: Response, next:NextFunction) => {
+const getConfig = (req: Request, res: Response, next: NextFunction) => {
   return res.status(200).json({ packJson })
 }
 
 // [GET] ../dev/version
-const getVersion = (req: Request, res:Response, next:NextFunction) => {
-  return res.status(200).json({ appVersion: 'dummy' })
+const getVersion = (req: Request, res: Response, next: NextFunction) => {
+  return res.status(200).json({ appVersion: 'dummy-version' })
 }
 
 // [GET] ../dev/seq
-const seq = async (req: Request, res:Response, next:NextFunction) => {
+const seq = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await sequelize.authenticate()
     console.log('Sequelize Connection established')
@@ -28,5 +28,5 @@ const seq = async (req: Request, res:Response, next:NextFunction) => {
 export default {
   getConfig,
   getVersion,
-  seq
+  seq,
 }
