@@ -31,10 +31,10 @@ app.use('/tweets', require('./routes/tweets'))
 const start = async () => {
   try {
     await sequelize.sync(
-      { force: true }, // Reset db every time
+      { force: false }, // Reset db every time
     )
     app.listen(process.env.EXTERNAL_PORT, () => {
-      console.log('I am running! (' + Date.now() + ')')
+      console.log('I am running now :) ! (' + Date.now() + ')')
 
       cron.schedule('*/6 * * * *', () => {
         addTweets('elonmusk')

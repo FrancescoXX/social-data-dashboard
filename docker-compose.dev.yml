@@ -3,10 +3,12 @@ version: '3.8'
 services:
   nsp_backend:
     container_name: nsp_backend
-    image: francescoxx/social-data-dashboard:0.0.5
+    image: social-data-dashboard-local:0.0.5
     build:
       context: .
-      target: prod
+      target: dev
+    volumes:
+      - ./src:/app/src
     ports:
       - '3001:3001'
     environment:
@@ -54,6 +56,19 @@ services:
       - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
     networks:
       - nsp_network
+  pgadmin4:
+    image: dpage/pgadmin4:4.30
+    ports:
+      - 7750:80
+    networks:
+      - nsp_network
+    depends_on:
+      - nsp_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
 volumes:
   nps_data: {}
